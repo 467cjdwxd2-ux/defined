@@ -61,7 +61,7 @@ function DefinitionText({ definition, theme, compact }: MockupProps) {
           : entry.text;
         return (
           <g key={entry.number}>
-            <text x="8%" y={y} fontFamily="Georgia, serif" fontSize={fontSize - 1} fill={c.sub} fontFamily="monospace">
+            <text x="8%" y={y} fontFamily="monospace" fontSize={fontSize - 1} fill={c.sub}>
               {entry.number}.
             </text>
             <text x="17%" y={y} fontFamily="Georgia, serif" fontSize={fontSize} fill={c.text} opacity="0.85">
