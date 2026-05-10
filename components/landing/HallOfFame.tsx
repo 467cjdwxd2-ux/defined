@@ -23,9 +23,9 @@ const HALL_OF_FAME: {
       pronunciation: "/ˈmɔːr.ɡən/",
       origin: "chaos, specifically",
       definitions: [
-        { number: 1, text: "sends 11-minute voice memos about absolutely nothing", emoji: "🎙️" },
-        { number: 2, text: "has 4 unread texts from their mom and zero regrets", emoji: "📱" },
-        { number: 3, text: "the reason the group chat has 847 unread messages", emoji: "💀" },
+        { number: 1, text: "sends 11-minute voice memos about absolutely nothing" },
+        { number: 2, text: "has 4 unread texts from their mom and zero regrets" },
+        { number: 3, text: "the reason the group chat has 847 unread messages" },
       ],
       tone: "chaotic",
       relationship: "best-friend",
@@ -35,7 +35,7 @@ const HALL_OF_FAME: {
     theme: "soft-life",
     likes: "47.2K",
     comments: "3.1K",
-    caption: "got my best friend the most accurate gift of all time 💀",
+    caption: "got my best friend the most accurate gift of all time",
     tag: "tag your most chaotic friend",
   },
   {
@@ -46,9 +46,9 @@ const HALL_OF_FAME: {
       pronunciation: "/ˈbɛk.ə/",
       origin: "a Sephora, probably",
       definitions: [
-        { number: 1, text: "cries at commercials but not at funerals", emoji: "😭" },
-        { number: 2, text: "has a 47-step skincare routine and still blames genetics", emoji: "✨" },
-        { number: 3, text: "manifesting her situationship into a relationship since 2019", emoji: "🕯️" },
+        { number: 1, text: "cries at commercials but not at funerals" },
+        { number: 2, text: "has a 47-step skincare routine and still blames genetics" },
+        { number: 3, text: "manifesting her situationship into a relationship since 2019" },
       ],
       tone: "emotionally-unstable",
       relationship: "best-friend",
@@ -58,7 +58,7 @@ const HALL_OF_FAME: {
     theme: "luxury-neutral",
     likes: "31.8K",
     comments: "2.4K",
-    caption: "she screamed when she opened it 😭 @becca",
+    caption: "she screamed when she opened it. @becca you're welcome",
     tag: "tag your skincare girl",
   },
   {
@@ -69,9 +69,9 @@ const HALL_OF_FAME: {
       pronunciation: "/ˈtaɪ.lər/",
       origin: "the gym, always the gym",
       definitions: [
-        { number: 1, text: "describes every meal as 'hitting macros' or 'a cheat day'", emoji: "💪" },
-        { number: 2, text: "has more supplements than personality", emoji: "🥤" },
-        { number: 3, text: "will tell you about CrossFit before you even ask", emoji: "🏋️" },
+        { number: 1, text: "describes every meal as 'hitting macros' or 'a cheat day'" },
+        { number: 2, text: "has more supplements than personality" },
+        { number: 3, text: "will tell you about CrossFit before you even ask" },
       ],
       tone: "savage",
       relationship: "best-friend",
@@ -81,7 +81,7 @@ const HALL_OF_FAME: {
     theme: "minimal",
     likes: "28.5K",
     comments: "1.9K",
-    caption: "he wore it to the gym immediately 💀",
+    caption: "he wore it to the gym immediately. no notes.",
     tag: "tag your gym bro",
   },
   {
@@ -92,9 +92,9 @@ const HALL_OF_FAME: {
       pronunciation: "/ˈɡrænd.mɑː/",
       origin: "a simpler time",
       definitions: [
-        { number: 1, text: "sends $20 in every birthday card regardless of your age", emoji: "💌" },
-        { number: 2, text: "has fed armies with a single casserole dish", emoji: "🍲" },
-        { number: 3, text: "loves unconditionally, asks about grandchildren constantly", emoji: "💕" },
+        { number: 1, text: "sends $20 in every birthday card regardless of your age" },
+        { number: 2, text: "has fed armies with a single casserole dish" },
+        { number: 3, text: "loves unconditionally, asks about grandchildren constantly" },
       ],
       tone: "wholesome",
       relationship: "mom",
@@ -104,7 +104,7 @@ const HALL_OF_FAME: {
     theme: "cottagecore",
     likes: "89.4K",
     comments: "6.7K",
-    caption: "grandma cried happy tears and I've never felt more powerful 🥹",
+    caption: "grandma cried happy tears and I've never felt more powerful",
     tag: "the perfect grandma gift",
   },
   {
@@ -115,9 +115,9 @@ const HALL_OF_FAME: {
       pronunciation: "/dʒɛs/",
       origin: "her villain era, ongoing",
       definitions: [
-        { number: 1, text: "started a business on a Tuesday and quit her job by Thursday", emoji: "💼" },
-        { number: 2, text: "unbothered, moisturized, in her lane, focused", emoji: "😌" },
-        { number: 3, text: "her 'no is a full sentence' energy is unmatched", emoji: "👑" },
+        { number: 1, text: "started a business on a Tuesday and quit her job by Thursday" },
+        { number: 2, text: "unbothered, moisturized, in her lane, focused" },
+        { number: 3, text: "her 'no is a full sentence' energy is unmatched" },
       ],
       tone: "main-character",
       relationship: "best-friend",
@@ -127,7 +127,7 @@ const HALL_OF_FAME: {
     theme: "grunge",
     likes: "52.1K",
     comments: "4.2K",
-    caption: "for my bestie who is THAT girl and knows it 👑",
+    caption: "for my bestie who is THAT girl and knows it",
     tag: "tag your main character bestie",
   },
   {
@@ -138,9 +138,9 @@ const HALL_OF_FAME: {
       pronunciation: "/ˈbɪs.kɪt/",
       origin: "the shelter, technically",
       definitions: [
-        { number: 1, text: "has never once respected personal space and never will", emoji: "🐾" },
-        { number: 2, text: "treats every walk like it's the last walk on earth", emoji: "🌍" },
-        { number: 3, text: "aggressively mediocre at fetch but 10/10 at being loved", emoji: "🎾" },
+        { number: 1, text: "has never once respected personal space and never will" },
+        { number: 2, text: "treats every walk like it's the last walk on earth" },
+        { number: 3, text: "aggressively mediocre at fetch but 10/10 at being loved" },
       ],
       tone: "pet-goblin",
       relationship: "dog",
@@ -150,7 +150,7 @@ const HALL_OF_FAME: {
     theme: "y2k",
     likes: "104K",
     comments: "8.3K",
-    caption: "defined my dog and it's disturbingly accurate 💀🐶",
+    caption: "defined my dog and it's disturbingly accurate",
     tag: "define your pet, I dare you",
   },
 ];
@@ -166,7 +166,7 @@ export default function HallOfFame() {
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-brand-50 text-brand-600 text-sm font-semibold mb-4 border border-brand-100">
-            🏆 Hall of Fame
+            Hall of Fame
           </span>
           <h2 className="section-title mb-4">
             Gifts that broke the{" "}
@@ -196,7 +196,7 @@ export default function HallOfFame() {
                   <p className="text-xs font-semibold text-gray-900 truncate">
                     @{item.definition.name.toLowerCase().replace(/\s/g, "_")}fan
                   </p>
-                  <p className="text-[10px] text-gray-400">Just now · 🌍</p>
+                  <p className="text-[10px] text-gray-400">Just now</p>
                 </div>
               </div>
 
@@ -215,7 +215,7 @@ export default function HallOfFame() {
                 </div>
                 {/* Viral badge */}
                 <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm rounded-full px-2 py-0.5 flex items-center gap-1 shadow-sm">
-                  <span className="text-[10px] font-bold text-red-500">🔥 VIRAL</span>
+                  <span className="text-[10px] font-bold text-red-500">VIRAL</span>
                 </div>
               </div>
 
@@ -266,7 +266,7 @@ export default function HallOfFame() {
             Join <span className="font-bold text-gray-900">12,000+</span> people who've defined someone they love (or lovingly roasted)
           </p>
           <Link href="/generate" className="btn-primary text-base px-10 py-4 rounded-2xl">
-            ✨ Create yours free
+            Create yours free
           </Link>
         </motion.div>
       </div>
