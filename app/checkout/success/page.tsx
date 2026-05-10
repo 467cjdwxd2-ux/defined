@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { CheckCircle, Package, Share2 } from "lucide-react";
 
-export default function CheckoutSuccessPage({
+export default async function CheckoutSuccessPage({
   searchParams,
 }: {
-  searchParams: { session_id?: string };
+  searchParams: Promise<{ session_id?: string }>;
 }) {
+  const params = await searchParams;
   return (
     <main className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="max-w-lg w-full text-center">
