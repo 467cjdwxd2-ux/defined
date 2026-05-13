@@ -23,6 +23,13 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Defined" }],
   creator: "Defined",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Defined",
+  },
+  formatDetection: { telephone: false },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -68,9 +75,25 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* PWA */}
+        <meta name="theme-color" content="#8338ec" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Defined" />
+        <link rel="apple-touch-icon" href="/icon-192.svg" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
       <body className="min-h-screen bg-white antialiased">
         {children}
+        <script dangerouslySetInnerHTML={{ __html: `
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/sw.js');
+            });
+          }
+        `}} />
         <Toaster
           position="bottom-center"
           toastOptions={{

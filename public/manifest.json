@@ -1,0 +1,44 @@
+{
+  "name": "Defined",
+  "short_name": "Defined",
+  "description": "Turn your favorite humans and pets into iconic fake dictionary entries.",
+  "start_url": "/generate",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8338ec",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["entertainment", "lifestyle", "shopping"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Generate Definition",
+      "short_name": "Generate",
+      "description": "Create a new definition",
+      "url": "/generate",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
