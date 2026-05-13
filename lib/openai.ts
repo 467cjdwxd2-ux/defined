@@ -2,8 +2,10 @@ import OpenAI from "openai";
 import type { GeneratorInput, Definition, DefinitionEntry, Tone, RelationshipType } from "@/types";
 import { generateId, isPet } from "./utils";
 
+// Uses Google Gemini via its OpenAI-compatible API (free tier)
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.GEMINI_API_KEY,
+  baseURL: "https://generativelanguage.googleapis.com/openai/",
 });
 
 const TONE_INSTRUCTIONS: Record<Tone, string> = {
@@ -128,7 +130,7 @@ export async function generateDefinitions(
   const results: Definition[] = [];
 
   const response = await openai.chat.completions.create({
-    model: "gpt-4o",
+    model: "gemini-2.0-flash",
     messages: [
       { role: "system", content: buildSystemPrompt() },
       { role: "user", content: buildUserPrompt(input) },
@@ -159,7 +161,7 @@ export async function generateDefinitions(
   // Generate 2 more variations with slightly different prompts
   for (let i = 1; i < variants; i++) {
     const variantResponse = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gemini-2.0-flash",
       messages: [
         { role: "system", content: buildSystemPrompt() },
         {
@@ -212,7 +214,7 @@ export async function remixDefinition(
   };
 
   const response = await openai.chat.completions.create({
-    model: "gpt-4o",
+    model: "gemini-2.0-flash",
     messages: [
       { role: "system", content: buildSystemPrompt() },
       {
