@@ -5,7 +5,7 @@ import { generateId, isPet } from "./utils";
 // Uses Google Gemini via its OpenAI-compatible API (free tier)
 const openai = new OpenAI({
   apiKey: process.env.GEMINI_API_KEY,
-  baseURL: "https://generativelanguage.googleapis.com/openai/",
+  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
 });
 
 const TONE_INSTRUCTIONS: Record<Tone, string> = {
@@ -71,7 +71,7 @@ Rules:
 - Keep it funny but never cruel
 - Make it feel handcrafted for this specific person
 
-Output ONLY valid JSON. No explanation, no markdown, no extra text.`;
+Output ONLY valid JSON. No explanation, no markdown, no extra text. Do not wrap in code blocks. Start your response with { and end with }.`;
 }
 
 function buildUserPrompt(input: GeneratorInput): string {
@@ -137,13 +137,15 @@ export async function generateDefinitions(
     ],
     temperature: 0.95,
     max_tokens: 1200,
-    response_format: { type: "json_object" },
   });
 
   const content = response.choices[0]?.message?.content;
   if (!content) throw new Error("No content from AI");
 
-  const parsed = JSON.parse(content);
+  // Extract JSON safely (strip any markdown code blocks if present)
+  const jsonMatch = content.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error("No JSON found in response");
+  const parsed = JSON.parse(jsonMatch[0]);
   const base: Definition = {
     id: generateId(),
     name: parsed.name || input.name,
@@ -178,7 +180,9 @@ export async function generateDefinitions(
 
     const varContent = variantResponse.choices[0]?.message?.content;
     if (varContent) {
-      const varParsed = JSON.parse(varContent);
+      const varJsonMatch = varContent.match(/\{[\s\S]*\}/);
+      const varParsed = varJsonMatch ? JSON.parse(varJsonMatch[0]) : null;
+      if (!varParsed) continue;
       results.push({
         id: generateId(),
         name: varParsed.name || input.name,
@@ -237,7 +241,9 @@ Return the same JSON structure with updated definitions.`,
   const content = response.choices[0]?.message?.content;
   if (!content) throw new Error("No content from AI");
 
-  const parsed = JSON.parse(content);
+  const jsonMatch2 = content.match(/\{[\s\S]*\}/);
+  if (!jsonMatch2) throw new Error("No JSON in remix response");
+  const parsed = JSON.parse(jsonMatch2[0]);
   return {
     ...original,
     id: generateId(),
