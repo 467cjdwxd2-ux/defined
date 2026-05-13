@@ -126,9 +126,6 @@ Make each definition feel distinct — different angle, different vibe, same per
 export async function generateDefinitions(
   input: GeneratorInput
 ): Promise<Definition[]> {
-  const variants = 3;
-  const results: Definition[] = [];
-
   const response = await openai.chat.completions.create({
     model: "gemini-2.0-flash",
     messages: [
@@ -146,7 +143,8 @@ export async function generateDefinitions(
   const jsonMatch = content.match(/\{[\s\S]*\}/);
   if (!jsonMatch) throw new Error("No JSON found in response");
   const parsed = JSON.parse(jsonMatch[0]);
-  const base: Definition = {
+
+  return [{
     id: generateId(),
     name: parsed.name || input.name,
     partOfSpeech: parsed.partOfSpeech || "noun",
@@ -156,48 +154,7 @@ export async function generateDefinitions(
     tone: input.tone,
     relationship: input.relationship,
     createdAt: new Date().toISOString(),
-  };
-
-  results.push(base);
-
-  // Generate 2 more variations with slightly different prompts
-  for (let i = 1; i < variants; i++) {
-    const variantResponse = await openai.chat.completions.create({
-      model: "gemini-2.0-flash",
-      messages: [
-        { role: "system", content: buildSystemPrompt() },
-        {
-          role: "user",
-          content:
-            buildUserPrompt(input) +
-            `\n\nIMPORTANT: This is variation ${i + 1}. Make it completely different from typical definitions — push into more ${i === 1 ? "specific behavioral details" : "emotional/poetic territory"}.`,
-        },
-      ],
-      temperature: 0.98,
-      max_tokens: 1200,
-      response_format: { type: "json_object" },
-    });
-
-    const varContent = variantResponse.choices[0]?.message?.content;
-    if (varContent) {
-      const varJsonMatch = varContent.match(/\{[\s\S]*\}/);
-      const varParsed = varJsonMatch ? JSON.parse(varJsonMatch[0]) : null;
-      if (!varParsed) continue;
-      results.push({
-        id: generateId(),
-        name: varParsed.name || input.name,
-        partOfSpeech: varParsed.partOfSpeech || "noun",
-        pronunciation: varParsed.pronunciation,
-        origin: varParsed.origin,
-        definitions: varParsed.definitions as DefinitionEntry[],
-        tone: input.tone,
-        relationship: input.relationship,
-        createdAt: new Date().toISOString(),
-      });
-    }
-  }
-
-  return results;
+  }];
 }
 
 export async function remixDefinition(
