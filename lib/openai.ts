@@ -1,12 +1,7 @@
-import OpenAI from "openai";
 import type { GeneratorInput, Definition, DefinitionEntry, Tone, RelationshipType } from "@/types";
 import { generateId, isPet } from "./utils";
 
-// Uses Google Gemini via its OpenAI-compatible API (free tier)
-const openai = new OpenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
-});
+const GEMINI_MODEL = "gemini-2.0-flash";
 
 const TONE_INSTRUCTIONS: Record<Tone, string> = {
   chaotic:
@@ -123,21 +118,40 @@ Return this exact JSON structure:
 Make each definition feel distinct — different angle, different vibe, same person.`;
 }
 
+async function callGemini(systemPrompt: string, userPrompt: string): Promise<string> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY not set");
+
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`;
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: systemPrompt }] },
+      contents: [{ role: "user", parts: [{ text: userPrompt }] }],
+      generationConfig: {
+        temperature: 0.95,
+        maxOutputTokens: 1200,
+      },
+    }),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`Gemini ${res.status}: ${errText}`);
+  }
+
+  const data = await res.json();
+  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!text) throw new Error("No text in Gemini response");
+  return text;
+}
+
 export async function generateDefinitions(
   input: GeneratorInput
 ): Promise<Definition[]> {
-  const response = await openai.chat.completions.create({
-    model: "gemini-2.0-flash",
-    messages: [
-      { role: "system", content: buildSystemPrompt() },
-      { role: "user", content: buildUserPrompt(input) },
-    ],
-    temperature: 0.95,
-    max_tokens: 1200,
-  });
-
-  const content = response.choices[0]?.message?.content;
-  if (!content) throw new Error("No content from AI");
+  const content = await callGemini(buildSystemPrompt(), buildUserPrompt(input));
 
   // Extract JSON safely (strip any markdown code blocks if present)
   const jsonMatch = content.match(/\{[\s\S]*\}/);
@@ -174,33 +188,21 @@ export async function remixDefinition(
       "Rewrite as if the pet wrote it about their human. Maximum chaotic pet energy.",
   };
 
-  const response = await openai.chat.completions.create({
-    model: "gemini-2.0-flash",
-    messages: [
-      { role: "system", content: buildSystemPrompt() },
-      {
-        role: "user",
-        content: `Take these existing definitions for "${original.name}" and rewrite them in a new style:
+  const content = await callGemini(
+    buildSystemPrompt(),
+    `Take these existing definitions for "${original.name}" and rewrite them in a new style:
 
 Original definitions:
 ${original.definitions.map((d) => `${d.number}. ${d.text}`).join("\n")}
 
 New direction: ${modeInstructions[mode]}
 
-Return the same JSON structure with updated definitions.`,
-      },
-    ],
-    temperature: 0.95,
-    max_tokens: 1000,
-    response_format: { type: "json_object" },
-  });
+Return the same JSON structure with updated definitions.`
+  );
 
-  const content = response.choices[0]?.message?.content;
-  if (!content) throw new Error("No content from AI");
-
-  const jsonMatch2 = content.match(/\{[\s\S]*\}/);
-  if (!jsonMatch2) throw new Error("No JSON in remix response");
-  const parsed = JSON.parse(jsonMatch2[0]);
+  const jsonMatch = content.match(/\{[\s\S]*\}/);
+  if (!jsonMatch) throw new Error("No JSON in remix response");
+  const parsed = JSON.parse(jsonMatch[0]);
   return {
     ...original,
     id: generateId(),
